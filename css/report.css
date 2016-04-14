@@ -1,0 +1,378 @@
+#content {
+  margin:5px;
+}
+
+.report-heading{
+  background:none repeat scroll 0 0 #CCCCCC;
+  color:red;
+  height:25px;
+  padding-left:25px;
+}
+.report-heading div{
+  font-size:13px;
+  width:440px;
+}
+.add-form {
+  float:right;
+  padding-right:130px;
+  padding-top:2px;
+  text-align:center;
+}
+.add-form a{
+  color:red;
+  font-size:10px;
+  font-weight:bold;
+}
+.sub-title {
+  font-size:12px;
+  background:#cccccc;
+  color:#FFFFFF;
+  text-align:center;
+  padding-top:2px;
+  padding-bottom:2px;
+  margin-top:15px;
+  margin-bottom:10px;
+}
+
+
+#facebox h2 {
+border-bottom:1px solid #DDDDDD;
+font-family:arial,serif,verdana;
+font-weight:normal;
+margin-top:1px;
+}
+
+/** container **/
+#add_container_link {
+  
+}
+
+#container_detail_form input {
+  border:1px solid #CCCCCC;
+  height:22px;
+  margin:2px;
+}
+
+#container_detail_form label{
+  font-size:12px;
+}
+
+#container_detail_form small{
+  font-size:10px;
+}
+#pattern_table input {
+width:60px;
+}
+
+/*Last*/
+label {
+font-size:12px;
+}
+.input {
+width:230px;
+border:1px solid #ccc;
+font-size:12px;
+}
+.client_input {
+width:99%;
+}
+.remarks {
+width:99%;
+height:100px;
+}
+.td_size {
+width:130px;
+}
+
+.input_border {
+border:1px solid #ccc;
+}
+/** end of container **/
+.delete_image {
+border:none;
+width:15px;
+height:15px;
+}
+
+a:focus {
+	outline: none;
+}
+#suffing_details_div {
+	height: 240px;
+	display: none;
+}
+#stuffing_general_div {
+	height: 410px;
+	display: none;
+}
+.slide {
+	margin: 0;
+	padding: 0;
+	border-top: solid 4px #422410;
+	background: url(../images/btn-slide.gif) no-repeat center top;
+}
+.btn-slide, .btn-slide1 {
+	background: url(../images/white-arrow.gif) no-repeat right -50px;
+	text-align: center;
+	width: 144px;
+	height: 31px;
+	padding: 10px 10px 0 0;
+	margin: 0 auto;
+	display: block;
+	font: bold 120%/100% Arial, Helvetica, sans-serif;
+	color: #fff;
+	text-decoration: none;
+	font-size:10px;
+}
+.active {
+	background-position: right 12px;
+}
+.r-datepicker {
+width:10px;
+height:10px;
+border:none;
+}
+.ui-layout-east {
+  font-size:11px;
+}
+.form-ul {
+padding-left:0px;
+}
+.form-ul li {
+list-style:none;
+margin-top:5px;
+}
+
+.form-ul li label {
+font-weight:bold;
+font-size:10px;
+}
+.form-ul li .input {
+width:100%;
+}
+.input-border {
+border:1px solid #ccc;
+}
+.input-right {
+  width:68%;
+}
+.input-full {
+  width:65%;
+}
+#generate_form {
+width:100px;
+}
+#result_div {
+float:left;
+margin-left:20px;
+color : red;
+}
+
+.common-ul {
+  
+}
+.common-ul li{
+list-style:none;
+line-height:10px;
+}
+ .ui-dialog .ui-dialog-titlebar {
+padding:0 0.5em;
+position:relative;
+}
+.show_remark {
+  font-size:9px;
+  padding-left:10px;
+  float:left;
+}
+#other_remark {
+  float:left;
+  margin-left:20px;
+  
+} 
+
+.clear {
+  clear:both;
+}
+
+#right-button {
+  float:left;
+  margin-left:10px;
+}
+
+#right-button a {
+  border:1px solid green;
+  background:green;
+  padding:2px;
+  margin-right:5px;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:12px;
+  color:#FFFFFF;
+}
+#get-file-form {
+  float:left;
+  margin-left:10px;
+  font-size:12px;
+}
+/**/
+.removeSuffingPatternRow hover{
+  
+}  
+/**/
+
+/* Main float menu */
+.slide-out-div {
+    background: none repeat scroll 0 0 #000000;
+    color: #FFFFFF;
+    opacity: 0.3;
+    padding: 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 230px;
+    z-index: 999;
+  
+}
+.slide-out-div span {
+  padding-right:5px;
+  padding-left:5px;
+
+  
+}  
+.slide-out-div span a {
+  font-size:10px;
+  color:#fff;
+}  
+/**/
+
+#proform {
+    margin: -15px auto;
+    width: 90%;
+}
+
+/* Example tokeninput style #2: Facebook style */
+ul.token-input-list-facebook {
+    overflow: hidden; 
+    height: auto !important; 
+    height: 1%;
+    width: 400px;
+    border: 1px solid #8496ba;
+    cursor: text;
+    font-size: 12px;
+    font-family: Verdana;
+    min-height: 1px;
+    z-index: 999;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    list-style-type: none;
+    clear: left;
+}
+
+ul.token-input-list-facebook li input {
+    border: 0;
+    width: 100px;
+    padding: 3px 8px;
+    background-color: white;
+    margin: 2px 0;
+    -webkit-appearance: caret;
+}
+
+li.token-input-token-facebook {
+    overflow: hidden; 
+    height: auto !important; 
+    height: 15px;
+    margin: 3px;
+    padding: 1px 3px;
+    background-color: #eff2f7;
+    color: #000;
+    cursor: default;
+    border: 1px solid #ccd5e4;
+    font-size: 11px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    float: left;
+    white-space: nowrap;
+}
+
+li.token-input-token-facebook p {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+li.token-input-token-facebook span {
+    color: #a6b3cf;
+    margin-left: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+li.token-input-selected-token-facebook {
+    background-color: #5670a6;
+    border: 1px solid #3b5998;
+    color: #fff;
+}
+
+li.token-input-input-token-facebook {
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+div.token-input-dropdown-facebook {
+    position: absolute;
+    width: 400px;
+    background-color: #fff;
+    overflow: hidden;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    cursor: default;
+    font-size: 11px;
+    font-family: Verdana;
+    z-index: 1;
+}
+
+div.token-input-dropdown-facebook p {
+    margin: 0;
+    padding: 5px;
+    font-weight: bold;
+    color: #777;
+}
+
+div.token-input-dropdown-facebook ul {
+    margin: 0;
+    padding: 0;
+}
+
+div.token-input-dropdown-facebook ul li {
+    background-color: #fff;
+    padding: 3px;
+    margin: 0;
+    list-style-type: none;
+}
+
+div.token-input-dropdown-facebook ul li.token-input-dropdown-item-facebook {
+    background-color: #fff;
+}
+
+div.token-input-dropdown-facebook ul li.token-input-dropdown-item2-facebook {
+    background-color: #fff;
+}
+
+div.token-input-dropdown-facebook ul li em {
+    font-weight: bold;
+    font-style: normal;
+}
+
+div.token-input-dropdown-facebook ul li.token-input-selected-dropdown-item-facebook {
+    background-color: #3b5998;
+    color: #fff;
+}
+
+.t2-table {margin-right:25px;margin-bottom:25px;float:left;}
+.t2-table.t2-first-table {font-size:10px;}
+
