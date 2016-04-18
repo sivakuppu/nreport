@@ -27,10 +27,12 @@ class Common extends CI_Controller {
   var $report_code_array =array();
   var $com = null;
   var $documents = null;
+  var $report_path = null;
    
 	function Common()
 	{
-	  parent::__construct(); 
+	  parent::__construct();
+	  $this->checkReportTargetFolder();	
 	  $this->load->model('commonDB');
 	  //$this->load->scaffolding('client');
 	  $this->report_type_array[1] = 'stuffing';
@@ -43,9 +45,45 @@ class Common extends CI_Controller {
     $this->report_code_array[3] = 'S';
     $this->report_code_array[4] = 'S';
     //$this->output->enable_profiler(TRUE);
+	
   }
   
- 
+  function checkReportTargetFolder() 
+  {
+	$path_file = realpath(FCPATH . "/reportpath.txt");
+	if(!file_exists($path_file)) {
+		echo sprintf('Text file %s doesn\'t exists. Please create the file and mension report target folder path',$path_file);
+		die();
+	}
+	$rpath = file_get_contents($path_file);
+	$rpath = str_replace(PHP_EOL,"", $rpath);
+	$rpath = trim($rpath);
+	if(empty($rpath)) {
+		echo sprintf('Text file %s was empty. Please mension report target folder path',$path_file);
+		die();
+	}
+	$rpath = $rpath . "/". date('Y');
+	if(!file_exists($rpath)) {
+		mkdir($rpath);
+	}
+	$this->report_path = $rpath;
+	$this->checkMonthFolder();
+  }
+  
+  function checkMonthFolder(){
+    $month = date('M');
+    $month = strtoupper($month);
+	$nes_path = $this->report_path . "/NES/$month"; 
+	if(!file_exists($nes_path)) {
+		mkdir($nes_path,0777,TRUE);
+	}	
+	$ce_path = $this->report_path . "/CE/$month";
+	
+	if(!file_exists($ce_path)) {
+		mkdir($ce_path,0777,TRUE);
+	}	
+  }
+
   function index() {
     $date = $this->session->userdata('search_date');
     $data['common_header'] = $this->getCommonHeader();
@@ -234,9 +272,10 @@ class Common extends CI_Controller {
   
   function saveAs($file)
   { // BEGIN function saveAs
-    $path = $this->config->item('report_path');
-	echo $path . $file;
-    $this->documents->SaveAs($path . $file);  	
+    $path = $this->report_path;
+	$file = $path ."/". $file;
+	echo $file;
+    $this->documents->SaveAs($file);  	
   } // END function saveAs
   
   function close()
