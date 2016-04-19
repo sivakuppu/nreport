@@ -5,6 +5,7 @@
 !*/cache/index.html
 !*/cache/.htaccess
 .DS_Store
+reportpath.txt
 user_guide/*
 application/cache/*
 !application/cache/index.html
