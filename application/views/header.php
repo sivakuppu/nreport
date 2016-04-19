@@ -12,13 +12,13 @@
     <link href="<?php echo base_url();?>css/table.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url();?>css/layout-default.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url();?>css/jquery-ui-1.8.custom.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url();?>css/report.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url();?>css/report.css?v=1" rel="stylesheet" type="text/css" />
       
     <script type="text/javascript" src="<?php echo base_url();?>js/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/jquery.layout.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/jquery-ui-1.8.custom.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/facebox.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>js/report.js?v=2"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>js/report.js?v=7"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/jquery.form.js"></script>
     <script type="text/javascript" src="<?php echo base_url();?>js/jquery.jeditable.js?v=1"></script>
     <?php 

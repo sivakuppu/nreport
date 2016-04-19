@@ -44,7 +44,7 @@
         <input type="text"  id="p_from" value="" size="3">
         <input type="button"  value="Fill Pattern" onclick="fillPattern();">
       </td>
-      <td>
+      <td class="add-more-pattern-type">
         <input type="text"  id="p_no_of_row" value="" size="3">
         <input type="button"  value="Add More Pattern" onclick="morePattern();">
 	  

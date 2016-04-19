@@ -162,12 +162,17 @@ function handle_tax(element) {
         });
         
     });        
-      
+    $(".pattern_type").val(1);  
+    $(".pattern_type").trigger("change");  
 	$(".pattern_type").change(function(){
+		$(".add-more-pattern-type").show();
 		var p = $(this).parent();
 		var t = $(this).val();
 		$(".pattern_type_item", p).hide();
 		$("#t" + t, p).show();
+		if(parseInt(t) == 2) {
+			$(".add-more-pattern-type").hide();
+		}	
 	})	
  });
  
@@ -252,10 +257,10 @@ function morePattern() {
   if(typeof no_of_row == 'undefined' || no_of_row == 0 || no_of_row == 'NaN') {
       no_of_row = 1;
   }
-  var last_value = $('#pattern_table table tr').length;
+  var last_value = $('#pattern_table #t1 table tr').length;
   for(var i=1; i<= no_of_row; i++) {
     last_value++;
-    var row = $('#pattern_table table tr:last').clone();
+    var row = $('#pattern_table #t1 table tr:last').clone();
     $(row).contents().find('input').each(function(){
       $(this).attr('name', 'pattern['+ last_value +'][]');
       $(this).attr('value', '**');
