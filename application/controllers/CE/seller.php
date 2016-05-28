@@ -67,10 +67,12 @@ class Seller extends CI_Controller {
 	}
 	
 	function search() {
-	   $q = $_REQUEST['q'];
-	   echo $this->seller_model->search($q);
-	   exit;
-  }
+		$q = $this->input->get_post('q', TRUE);	
+		if($q){
+			echo $this->seller_model->search($q);
+		}	
+		exit;
+	}
   
   function get_search_data() {
     $seller_search_text = $this->input->post('seller_search_text');

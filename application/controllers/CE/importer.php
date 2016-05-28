@@ -46,6 +46,7 @@ class Importer extends CI_Controller {
 					       	'fax' => set_value('fax'),
 					       	'email_id' => set_value('email_id'),
 					       	'remarks' => set_value('remarks'),
+					       	'code' => set_value('code'),
 					       	'created_by' => 1,
 					       	'created_on' => date('Y-m-d H:i:s'),
 						);
@@ -67,10 +68,12 @@ class Importer extends CI_Controller {
 	}
 	
 	function search() {
-	   $q = $_REQUEST['q'];
-	   echo $this->importer_model->search($q);
-	   exit;
-  }
+		$q = $this->input->get_post('q', TRUE);	
+		if($q){
+			echo $this->importer_model->search($q);
+		}
+		exit;
+	}
   
   function get_search_data() {
     $importer_search_text = $this->input->post('importer_search_text');

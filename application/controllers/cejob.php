@@ -40,19 +40,19 @@ class Cejob extends Common {
 	    }
 	  }
 	  
-		$this->form_validation->set_rules('certificate_of_inspection_no','Certificate of Inspection No.','required|trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('certificate_of_inspection_no','Certificate of Inspection No.','required|trim|max_length[255]');			
 		$this->form_validation->set_rules('agent','Agent','');			
 		$this->form_validation->set_rules('importer','Importer','');			
 		$this->form_validation->set_rules('seller','Seller','');	
     $this->form_validation->set_rules('agent_id','Agent ID','');			
 		$this->form_validation->set_rules('importer_id','Importer ID','');			
 		$this->form_validation->set_rules('seller_id','Seller ID','');					
-		$this->form_validation->set_rules('port_of_shipment','Port of Shipment','trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('port_of_shipment','Port of Shipment','trim|max_length[255]');			
 		$this->form_validation->set_rules('declare_invoice_value','Declare Invoice Value','max_length[255]');			
-		$this->form_validation->set_rules('currency','Currency','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('toi','TOI','trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('currency','Currency','trim|max_length[255]');			
+		$this->form_validation->set_rules('toi','TOI','trim|max_length[255]');			
 		$this->form_validation->set_rules('certificate_date','Certificate Date','');			
-		$this->form_validation->set_rules('freight_amount','Freight Amount','trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('freight_amount','Freight Amount','trim|max_length[255]');			
 		$this->form_validation->set_rules('goods_invoice_no','Goods Invoice No.','trim');			
 		$this->form_validation->set_rules('mabw_bl_no','MABW BL No.','trim');			
 		$this->form_validation->set_rules('inspection_place','Inspection Place','trim|max_length[255]');			
@@ -84,6 +84,9 @@ class Cejob extends Common {
 					       	'certificate_date' => set_value('certificate_date'),
 					       	'freight_amount' => set_value('freight_amount'),
 					       	'goods_invoice_no' => set_value('goods_invoice_no'),
+					       	'invoice_date' => set_value('invoice_date'),
+					       	'inspection_date' => set_value('inspection_date'),
+					       	'inspection_duration' => set_value('inspection_duration'),
 					       	'mabw_bl_no' => set_value('mabw_bl_no'),
 					       	'inspection_place' => set_value('inspection_place'),
 					       	'be_number' => set_value('be_number'),
@@ -174,16 +177,22 @@ class Cejob extends Common {
   }
   
   function generate($id) {
-     include "CE\include.php";
+    include "CE\include.php";
+	$date_format_ce = "d/m/Y";
     $row = (array) $this->certificate_model->getData($id);
     extract($row);
-	  $agent = $this->agent_model->getName($agent_id);  
-	  $seller = $this->seller_model->getName($seller_id);
+	$agent = $this->agent_model->getName($agent_id);  
+	$seller = $this->seller_model->getName($seller_id);
     $importer = $this->importer_model->getName($importer_id);
+	list($importer_name,$importer_address, $importer_code) = $this->importer_model->getImporter($importer_id);
     $report_date = $this->getDateFormat($certificate_date);
     $certificate_of_inspection_no = strtoupper($certificate_of_inspection_no);
     $file_name = str_replace("/","_", $certificate_of_inspection_no);
-    
+	//inspection_duration
+
+	$invoice_date=strtotime($invoice_date);	
+	$invoice_date=date($date_format_ce,$invoice_date);	$inspection_date=strtotime($inspection_date);	
+	$inspection_date=date($date_format_ce,$inspection_date);
     $sequence = explode('/',$certificate_of_inspection_no);
     $sequence_no = is_array($sequence) ? $sequence[2] : rand(0,9);
     
@@ -192,6 +201,17 @@ class Cejob extends Common {
     $agent_name = str_replace(array('Chennai','chennai','CHENNAI','M/s', 'M/S', 'm/s', 'm/S', '&',"'",",","."),"", $agent_name);
     //$agent_name = str_replace(" ","_", $agent_name); 
     $file_name = $sequence_no ."_".$agent_name; 	
+
+	$inspection = array();
+	$inspection[] = array("(i)	Place of Inspection",$inspection_place);
+	$inspection[] = array("(ii)	Date of Inspection",$inspection_date);
+	$inspection[] = array("(iii)	Duration of inspection (in hours)","$inspection_duration HOURS");
+	$importer_array = array();
+	$importer_array[] = array("(i)	Name",$importer_name);
+	$importer_array[] = array("(ii)	Address",$importer_address);
+	$importer_array[] = array("(iii)	Importer Exporter Code No",$importer_code);
+
+
 
     $general = array();  
     $general[] = array("IMPORTER’S NAME & ADDRESS", htmlspecialchars_decode($importer));
@@ -222,95 +242,109 @@ class Cejob extends Common {
         $appraised_value = $this->getStr($appraised_value);
         $cost_of_recondition  = "USED AND NOT RECONDITIONED" == strtoupper($ce_remarks) ?  "NOT APPLICABLE"  : $cost_of_recondition;
         $year_of_mfg = empty($year_of_mfg) ? (empty($eval_year_of_mfg) ? "NOT APPLICABLE" : htmlspecialchars_decode($eval_year_of_mfg) ) :  htmlspecialchars_decode($year_of_mfg);   
-        $local_array_2[$key+1] = array($key+1, htmlspecialchars_decode($item_name),htmlspecialchars_decode($specification),htmlspecialchars_decode($quantity),htmlspecialchars_decode($year_of_mfg),htmlspecialchars_decode($cost_of_machine),$cost_of_recondition,$appraised_value);
+        $local_array_2[$key+1] = array($key+1, htmlspecialchars_decode($item_name),htmlspecialchars_decode($specification),htmlspecialchars_decode($quantity),htmlspecialchars_decode($year_of_mfg),htmlspecialchars_decode($cost_of_machine),$cost_of_recondition,$appraised_value, "");
       }
       
-      $report_head = "Total Appraised Value $toi Including Available Accessories";
-      $report_head .= $flag > 0 ? " & Reconditioning Charges" : "";
+      $report_head = " Evaluated Value $toi Including Available Accessories ";
+      $report_head .= $flag > 0 ? " and Reconditioning Charges " : "";
       $local_array_1[0] = array("SL. No.", "Description of items as per the Declaration","Specification Details Noticed", "Make","Qty in Units","Year of MFG", "CE's Remarks");
-      $local_array_2[0] = array("SL. No.", "Description of items as per the Declaration","Specification Details Noticed","Qty in Units","Year of MFG","Cost of Machine Including Accessories at the time of Manufacture In $currency", "Cost of Reconditioning Charges in $currency " , " $report_head in $currency" );
+      $local_array_2[0] = array("SL. No.", "Description of items as per the Declaration","Specification Details Noticed","Qty in Units","Year of MFG","Cost of Item at the time of Manufacture Including Accessories in $currency", "Evaluated Cost of Reconditioning Charge in  $currency " , " $report_head in $currency", "Declared Invoice Value $toi in $currency" );
 
+		$viii = $ix = $x = $xii= $xiii = ""; 
+		$goods[] = array("(i)","Name of Manufacturer of the machine:","Please refer Annexure I");
+		$goods[] = array("(ii)","Year of manufacture of machinery:","Please refer Annexure I");
+		$goods[] = array("(iii)","Serial no. / ID No. Or the manufacturer’s plate affixed on the machine:","Please refer Annexure I"); 
+		$goods[] = array("(iv)","Description of Machine","Please refer Annexure I"); 
+		$goods[] = array("(v)","Whether original invoice relating to the machine is available?","NOT AVAILABLE");
+		$goods[] = array("(vi)","If yes, value --------currency ----- Date of invoice -------- (please enclose copy)	","NOT APPLICABLE");
+		$goods[] = array("(vii)","If no, please estimate the original sale price of the machinery:","Please refer Annexure II");
+		$goods[] = array("(viii)","Present condition of machinery and expected lifespan:","$viii");
+		$goods[] = array("(ix)","Has any reconditioning or repairs been carried out immediately preceding this inspection: YES /NO","$ix");
+		$goods[] = array("(x)","If yes, have these been carried out at the expense of the seller or by the purchaser or a third party?","$x");
+		$goods[] = array("(xi)","Are there invoices to indicate the cost thereof: 
+		YES / NO 
+		(please enclose relevant invoices)","NOT APPLICABLE");
+		$goods[] = array("(xii)","If No, then estimated cost thereof","$xii");
+		$goods[] = array("(xiii)","Please briefly describe the nature of repairs and/or refurbishment:","$xiii");
+		$goods[] = array("(xiv)","Were any charges incurred by the purchaser, for dismantling, packing and transporting the machinery to the port of export? If yes, please indicate the charges","NO");
+		$goods[] = array("(xv)","Any catalogues / documentation of the machine are available? If yes, please provide the details and copies.","NO");
+
+		$valuation_reference[] = array("(i)","Valuation Reference (attached)");
+		$valuation_reference[] = array("(ii)","");
+		$valuation_reference[] = array("(iii)","");
+
+		$signature[] = array("Signature:\n\n\n\n\n\n\n");
+		$inspector[] = array("Date","6.11.2015");
+		$inspector[] = array("Name of Inspecting Person / Inspector","K.P. VIJAYAKUMAR\nCHARTERED ENGINEER\nREG NO: M / 121699 / 0");
+		$inspector[] = array("Designation","CEO\nNIREEKSHAN ENGINEERS AND SURVEYORS");
+		$inspector[] = array("Address (Office)","NEW: 259, OLD: 125, II FLOOR,\nLINGHI CHETTY STREET,\nCHENNAI – 600001.");
+		$inspector[] = array("E Mail Address","vj@nireekshan.in");
+		$inspector[] = array("Phone Number","044-25232980 / 25210473");
+
+	  
       $footer_array[0] = array(htmlspecialchars_decode($report_head), $currency, $this->getStr($total));
       if($freight_amount || $freight_description ) {
        $footer_array[1] = array(htmlspecialchars_decode($freight_description), $currency, $this->getStr($freight_amount));
        
       }
       if($this->getStr($declare_invoice_value, true) > 0) {
-       $footer_array[2] = array("Declared Invoice Value as per Invoice no. ".htmlspecialchars_decode($goods_invoice_no), $currency, $this->getStr($declare_invoice_value));
+       $footer_array[2] = array("Declared Invoice Value $toi as per Invoice no. ".htmlspecialchars_decode($goods_invoice_no), $currency, $this->getStr($declare_invoice_value));
       } 
     }
+	$letter_space  = 40;
+	
     $this->word("Calibri (Body)", 11, "0.5");
-    $this->middleParagraph($p1 , true);
-    $this->middleParagraph($p2 , true);
-    $this->middleParagraph($p3 , true);
-    $this->middleParagraph($p4 , true);
+	$this->getWhiteLine(3);
+    $this->middleParagraphUnderline("CERTIFICATE OF INSPECTION" , true, 13);
+    $this->middleParagraphUnderline("FORM B" , true, 13,10,10);
     $this->getReportNo($certificate_of_inspection_no, $report_date, 8);
-    $this->getParagraph($p5,true, "", 6,0);      
-    $this->getParagraph(sprintf($p6, $agent, $importer),false, "", 6, 0,15);
-    $this->getParagraph($p7,false, "", 6,0, 15);
-    $this->getParagraph($p8,true, "", 6,0);//used machine
-    $this->getParagraph($p9,false, "", 6,0, 15);
-    $this->getParagraph($p10,false, "", 6,0, 30);
-    $this->getParagraph($p11,false, "", 6,0, 30);
-    $this->getParagraph($p12,false, "", 6,0, 30);
-    $this->getParagraph($p13,false, "", 6,0, 30);
-    $this->getParagraph($p14,false, "", 6,0, 30);
-    $this->getParagraph($p15,true, "", 6,0);//primary details
-    if(!empty($general)) {
-       $this->generateTable($general);
+	
+		
+    $this->getParagraph(sprintf($p6, $p1, $goods_invoice_no, $invoice_date, $agent, $importer),false, "",15,15);
+    $this->getParagraph($p7,false, "",15,15);
+	if(!empty($inspection)) {
+       $this->generateTable($inspection);
     }
-    $this->getParagraph($p16,true, "", 6,0);//INSPECTION FINDINGS
-    $this->getParagraph($p17,false, "", 6,0, 15);
-    $this->getParagraph($p18,false, "", 6,0, 15);
+    $this->getParagraphUnderline("Details of Importer:",true, "", 10,10);//Details of Importer
+	
+    if(!empty($importer_array)) {
+       $this->generateTable($importer_array);
+    }
+	$this->getParagraphUnderline("Details of the goods:",true, "", 10,10);//Details of the goods:
+    if(!empty($goods)) {
+       $this->generateTableAutoLastBold($goods);
+    }
+    $this->getParagraph("The following means / aids/ technical reference material have been used for inspecting the goods:",false, "", 15,15);
+    if(!empty($valuation_reference)) {
+       $this->generateTable($valuation_reference);
+    }
+    $this->getParagraph("I hereby declare that the particulars and statements made in this certificate are true and correct.",false, "", 15,15);
+    if(!empty($inspector)) {
+       $this->generateTable($signature);
+       $this->generateTable($inspector);
+    }
+	$this->getWhiteLine(1);
+	$this->middleParagraphUnderline("ANNEXURE – I" , true, 11,0,20);
+	$this->getReportNo($certificate_of_inspection_no, $report_date, 8);
+    $this->getParagraph("REF: $be_number", true,11,5,10);
     if(!empty($local_array_1)) {
        $this->generateHeaderTable($local_array_1);
     }
     if($comments) {
-      $this->getParagraph(htmlspecialchars_decode($comments),false, "", 6,0);
+      $this->getParagraph(htmlspecialchars_decode($comments),false, "", 15,15);
     }
-    
-    
-    $this->getParagraph($p20,true, "", 6,0);//CHARTERED ENGINEER’S COMMENTS
-    $this->getParagraph($p21,false, "", 6,0, 15);
-    $this->getParagraph($p22,false, "", 6,0, 15);
-    $this->getParagraph($p23,true, "", 6,0);//YEAR OF MFR / AGE / EXPECTED RESIDUAL LIFE
-    $this->getParagraph($p24,false, "", 6,0, 15);
-    $this->getParagraph($p25,false, "", 6,0, 15);
-    $this->getParagraph($p26,false, "", 6,0, 15);
-    $this->getParagraph($p27,true, "", 6,0);//FUNCTIONS OF THE MACHINES
-    if($function) {
-      $this->getParagraph(htmlspecialchars_decode($function),false, "", 6,0, 15);
-    }
-    $this->getParagraph($p29,true, "", 6,0);//TECHNOLOGY GENERATION
-    $this->getParagraph($p30,false, "", 6,0, 15);
-    $this->getParagraph($p31,true, "", 6,0);//FAIR AND REASONABLE
-    $this->getParagraph($p32,false, "", 6,0, 15);
-    $this->getParagraph($p33,false, "", 6,0, 15);
-    $this->getParagraph($p34,false, "", 6,0, 15);
-    $this->getParagraph($p35,false, "", 6,0, 15);
-    $this->getParagraph($p36,false, "", 6,0, 15);
-    $this->getParagraph($p37,false, "", 6,0, 15);
-    $this->getParagraph($p38,false, "", 6,0, 15);  
-    $this->getParagraph($p39,true, "", 6,0);//RELATED DOCUMENTS
-    $invoice = "INVOICE NO. & DATE\t\t\t ".htmlspecialchars_decode($goods_invoice_no);
-    $mawb = "MAWB/BL NO & DATE\t\t\t ".htmlspecialchars_decode($mabw_bl_no); 
-    $this->getParagraph(htmlspecialchars_decode($invoice),false, "", 6,0, 15);
-    $this->getParagraph(htmlspecialchars_decode($mawb),false, "", 6,0, 15); 
-    $this->getParagraph($p40,true, "", 6,0);//TERMS AND CONDITIONS FOR THE ISSUE OF THIS CERTIFICATE
-    $this->getParagraph($p41,false, "", 6,0, 15);
-    $this->getParagraph($p42,false, "", 6,0, 15);
-    $this->getParagraph($p43,false, "", 6,0, 15);
-    $this->getParagraph($p44,false, "", 6,0, 30);
-    $this->getParagraph($p45,false, "", 6,0, 30);
-    $this->getParagraph($p46,true, "", 6,0);
+	$letter_space  = 40;
+	$this->getWhiteLine(1);
+    $this->getParagraph($p46,true, "", 6,0,$letter_space);
     $this->getWhiteLine(1);
-    $this->getParagraph($p47,true, "", 6,0);
-    $this->getParagraph($p48,true, "", 6,0);
-    $this->getParagraph($p49,true, "", 6,0);
-    $this->getParagraph($p50,true, "", 6,0);
-    $this->getParagraph(sprintf($p51, $report_date),true, "", 6,0);
-    $this->getParagraph($p52,true, "", 6,0);
-    $this->middleParagraph($p53 ,true);
+    $this->getParagraph($p47,true, "", 6,0,$letter_space);
+    $this->getParagraph($p48,true, "", 6,0,$letter_space);
+    $this->getParagraph(sprintf($p51, $report_date),true, "", 6,0,$letter_space);
+    $this->getParagraph($p52,true, "", 6,0,$letter_space);
+
+    $this->getWhiteLine(1);
+    $this->middleParagraphUnderline("ANNEXURE – II" ,true, 11);
+    $this->middleParagraph($p53 ,true, 10,10,10);
     $this->getReportNo($certificate_of_inspection_no, $report_date, 8);
     if(!empty($local_array_2)) {
       $this->generateHeaderTable($local_array_2);
@@ -319,6 +353,13 @@ class Cejob extends Common {
     if(!empty($footer_array)) {
        $this->generateTable($footer_array);
     }
+	$this->getWhiteLine(1);
+    $this->getParagraph($p46,true, "", 6,0,$letter_space);
+    $this->getWhiteLine(1);
+    $this->getParagraph($p47,true, "", 6,0,$letter_space);
+    $this->getParagraph($p48,true, "", 6,0,$letter_space);
+    $this->getParagraph(sprintf($p51, $report_date),true, "", 6,0,$letter_space);
+    $this->getParagraph($p52,true, "", 6,0,$letter_space);
     
     $status = true; 
     try {

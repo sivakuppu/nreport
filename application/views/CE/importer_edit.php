@@ -27,7 +27,10 @@
         <?php echo form_error('name'); ?>
         <br /><input id="name" type="text" name="name"  value="<?php echo $name; ?>"  />
 </p>
-
+<p>
+        <label for="code">Code</label>
+        <br /><input id="code" type="text" name="code"  value="<?php echo $code; ?>"  />
+</p>
 <p>
         <label for="address1">Address1</label>
         <?php echo form_error('address1'); ?>

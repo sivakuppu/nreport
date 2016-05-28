@@ -274,7 +274,6 @@ class Common extends CI_Controller {
   { // BEGIN function saveAs
     $path = $this->report_path;
 	$file = $path ."/". $file;
-	echo $file;
     $this->documents->SaveAs($file);  	
   } // END function saveAs
   
@@ -326,18 +325,54 @@ class Common extends CI_Controller {
   	 $range->Font->Size = $font;
     }
   	$range->InsertBefore($text);
+  } // END function getParagraph  
+  
+  function getParagraphUnderline($text, $bold = false, $font = "", $before = 0, $after = 0, $indentationLeft = "0", $align = '')
+  { // BEGIN function getParagraph
+  	$range = $this->documents->Paragraphs->Add->Range;
+	$range->ParagraphFormat->SpaceBefore = $before;
+	$range->ParagraphFormat->SpaceAfter = $after;
+	$range->ParagraphFormat->LeftIndent  = $indentationLeft;
+	if($align) {
+	    $range->ParagraphFormat->Alignment = $align;
+	}
+  	if($bold) {
+  	 $range->Font->Bold = TRUE;
+  	}
+  	if($font) {
+  	 $range->Font->Size = $font;
+    }
+	$range->Font->Underline = TRUE;
+  	$range->InsertBefore($text);
   } // END function getParagraph
   
-  function middleParagraph($text, $bold = false, $size = "10")  
+  function middleParagraph($text, $bold = false, $size = "10",$before = 0, $after = 0)  
   { // BEGIN function getFirstFooter
   	$range = $this->documents->Paragraphs->Add->Range;
   	$range->ParagraphFormat->Alignment = 1;
-	  $range->ParagraphFormat->SpaceAfter = 0;
-	  $range->ParagraphFormat->SpaceBefore = 0;
+	  $range->ParagraphFormat->SpaceAfter = $after;
+	  $range->ParagraphFormat->SpaceBefore = $before;
   	if($bold) {
   	 $range->Font->Bold = TRUE;
   	}
   	$range->Font->Size = $size;
+	if($underline) {
+		$range->Font->Underline = TRUE;
+	}
+  	$range->InsertBefore($text);
+  } // END function getFirstFooter
+
+  function middleParagraphUnderline($text, $bold = false, $size = "10", $before = 0, $after = 0)  
+  { // BEGIN function getFirstFooter
+  	$range = $this->documents->Paragraphs->Add->Range;
+  	$range->ParagraphFormat->Alignment = 1;
+	  $range->ParagraphFormat->SpaceAfter = $before;
+	  $range->ParagraphFormat->SpaceBefore = $after;
+  	if($bold) {
+  	 $range->Font->Bold = TRUE;
+  	}
+  	$range->Font->Size = $size;
+	$range->Font->Underline = TRUE;
   	$range->InsertBefore($text);
   } // END function getFirstFooter
        
@@ -392,6 +427,24 @@ class Common extends CI_Controller {
       }
      }
   } // END function generateTable
+  
+  function generateTableAutoLastBold($table_array)
+  { // BEGIN function generateTable
+     $col = count($table_array[0]);
+  	 $row = count($table_array); 
+  	 $range = $this->documents->Paragraphs->Add->Range;
+  	 $table = $this->com->ActiveDocument->Tables->Add($range,$row,$col,1,1);
+  	 foreach ($table_array as $index => $table_row_data) {
+		$table_row = $index + 1;
+    	foreach ($table_row_data as $key => $value) {
+        $header_col = $key +1;
+        $value = empty($value) ? " - " : $value;
+        $table->Cell($table_row,$header_col)->Range->InsertAfter($value);
+        $table->Cell($table_row,$header_col)->Range->ParagraphFormat->Alignment = 0;
+		$table->Cell($table_row,$col)->Range->Font->Bold=TRUE;
+      }
+     }
+  } // END function generateTableWithAutoFit
   
   function getPatternTable($table_array) {
      $col = count($table_array[1]);
@@ -477,7 +530,7 @@ foreach($final_a_1_row_12 as $kkk => $vvv) {
 
      $col = count($final_array[1]);
   	 $row = count($final_array); 
-	 echo "ROW :: $row";
+	 //echo "ROW :: $row";
   	 $range = $this->documents->Paragraphs->Add->Range;
   	 $table = $this->com->ActiveDocument->Tables->Add($range,$row,$col,1,2);
 

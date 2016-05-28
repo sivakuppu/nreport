@@ -67,8 +67,10 @@ class Agent extends CI_Controller {
 	}
 	
 	function search() {
-	   $q = $_REQUEST['q'];
-	   echo $this->agent_model->search($q);
+	   $q = $this->input->get_post('q', TRUE);	
+	   if($q){
+			echo $this->agent_model->search($q);
+	   }
 	   exit;
   }
   

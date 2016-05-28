@@ -78,5 +78,26 @@ class Importer_model extends CI_Model {
       }
       return "";
   }
+    function getImporter($id){
+      if($id > 0 ) {
+          $this->db->where('id', $id);
+          $query = $this->db->get($this->table);
+          $result = $query->row();
+          if(!empty($result)) {
+              $name = $result->name;
+			  $address = "";
+              $address .= !empty($result->address1) ?  "{$result->address1}" : "";
+              $address .= !empty($result->address2) ?  ", {$result->address2}" : "";
+              $address .= !empty($result->address3) ?  ", {$result->address3}" : "";
+              $address .= !empty($result->city) ?  ", {$result->city}" : "";
+              $address .= (!empty($result->city) && !empty($result->pincode)) ?  " - " : " ";
+              $address .= !empty($result->pin_code) ?  "{$result->pin_code}" : "";
+              $address .= !empty($result->contry) ?  ", {$result->contry}" : " ";
+              return array(htmlspecialchars_decode($name), htmlspecialchars_decode($address), htmlspecialchars_decode($result->code));
+          }
+      }
+      return array("","","");
+  }
+
 }
 ?>

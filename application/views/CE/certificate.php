@@ -82,10 +82,13 @@ echo form_open($action , $attributes); ?>
         <label for="goods_invoice_no">Goods Invoice No.</label>
 	<?php echo form_error('goods_invoice_no'); ?>
 	<br />
-							
-	<?=form_textarea( array( 'name' => 'goods_invoice_no', 'rows' => '3', 'cols' => '80', 'value' => isset($goods_invoice_no) ? $goods_invoice_no : set_value('goods_invoice_no') ) )?>
+	<input id="goods_invoice_no" type="text" name="goods_invoice_no" maxlength="255" value="<?php echo isset($goods_invoice_no) ? $goods_invoice_no  : set_value('goods_invoice_no'); ?>"  />
 </p>
-
+<p>
+        <label for="invoice_date">Goods Invoice Date</label>
+        <?php echo form_error('invoice_date'); ?>
+        <br /><input id="invoice_date" class="datepicker" type="text" name="invoice_date"  autocomplete="off" value="<?php echo isset($invoice_date) ? $invoice_date : set_value('invoice_date'); ?>"  />
+</p>
 <p>
         <label for="declare_invoice_value">Declare Invoice Value</label>
         <?php echo form_error('declare_invoice_value'); ?>
@@ -101,16 +104,23 @@ echo form_open($action , $attributes); ?>
         <?php echo form_error('inspection_place'); ?>
         <br /><input id="inspection_place" type="text" name="inspection_place" maxlength="255" value="<?php echo isset($inspection_place) ? $inspection_place  : set_value('inspection_place'); ?>"  />
 </p>
-
 <p>
-        <label for="mabw_bl_no">MABW BL No.</label>
+        <label for="inspection_date">Inspection Date</label>
+        <?php echo form_error('inspection_date'); ?>
+        <br /><input id="inspection_date" class="datepicker" type="text" name="inspection_date"  autocomplete="off" value="<?php echo isset($inspection_date) ? $inspection_date : set_value('inspection_date'); ?>"  />
+</p>
+<p>
+    <label for="inspection_duration">Duration of inspection (In Hours)</label>
+	<?php echo form_error('inspection_duration'); ?>
+	<br />
+	<input id="inspection_duration" type="text" name="inspection_duration" maxlength="255" value="<?php echo isset($inspection_duration) ? $inspection_duration  : set_value('inspection_duration'); ?>"  />					
+</p>
+<p>
+    <label for="mabw_bl_no">MABW BL No.</label>
 	<?php echo form_error('mabw_bl_no'); ?>
 	<br />
-							
-	<?=form_textarea( array( 'name' => 'mabw_bl_no', 'rows' => '3', 'cols' => '80', 'value' => isset($mabw_bl_no) ?  $mabw_bl_no : set_value('mabw_bl_no') ) )?>
+	<input id="mabw_bl_no" type="text" name="mabw_bl_no" maxlength="255" value="<?php echo isset($mabw_bl_no) ? $mabw_bl_no  : set_value('mabw_bl_no'); ?>"  />
 </p>
-
-
 </div>
 <div class="right-panel common-div width-div" >
 
