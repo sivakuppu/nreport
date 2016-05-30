@@ -283,12 +283,12 @@ class Cejob extends Common {
 
 	  
       $footer_array[0] = array(htmlspecialchars_decode($report_head), $currency, $this->getStr($total));
-      if($freight_amount || $freight_description ) {
+      /*if($freight_amount || $freight_description ) {
        $footer_array[1] = array(htmlspecialchars_decode($freight_description), $currency, $this->getStr($freight_amount));
        
-      }
+      }*/
       if($this->getStr($declare_invoice_value, true) > 0) {
-       $footer_array[2] = array("Declared Invoice Value $toi as per Invoice no. ".htmlspecialchars_decode($goods_invoice_no), $currency, $this->getStr($declare_invoice_value));
+       $footer_array[2] = array("Declared Invoice Value $toi as per Invoice no. ".htmlspecialchars_decode($goods_invoice_no) . " / " . $invoice_date, $currency, $this->getStr($declare_invoice_value));
       } 
     }
 	$letter_space  = 40;
@@ -300,7 +300,7 @@ class Cejob extends Common {
     $this->getReportNo($certificate_of_inspection_no, $report_date, 8);
 	
 		
-    $this->getParagraph(sprintf($p6, $p1, $goods_invoice_no, $invoice_date, $agent, $importer),false, "",15,15);
+    $this->getParagraph(sprintf($p6, $p1, $goods_invoice_no, $invoice_date,$seller),false, "",15,15);
     $this->getParagraph($p7,false, "",15,15);
 	if(!empty($inspection)) {
        $this->generateTable($inspection);
@@ -330,9 +330,9 @@ class Cejob extends Common {
     if(!empty($local_array_1)) {
        $this->generateHeaderTable($local_array_1);
     }
-    if($comments) {
+    /*if($comments) {
       $this->getParagraph(htmlspecialchars_decode($comments),false, "", 15,15);
-    }
+    }*/
 	$letter_space  = 40;
 	$this->getWhiteLine(1);
     $this->getParagraph($p46,true, "", 6,0,$letter_space);

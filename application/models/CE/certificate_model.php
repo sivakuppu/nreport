@@ -59,10 +59,7 @@ class Certificate_model extends CI_Model {
    $this->db->order_by('id', 'DESC');
    $this->db->limit(1); 
    $query = $this->db->get($this->table);
-   if($query->num_row() > 0) {
 	return $query->row()->certificate_of_inspection_no;
-   }
-   return "";
   }
   
 }
