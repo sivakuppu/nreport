@@ -17,16 +17,16 @@ class Item extends CI_Controller {
 	{			
 	  $data['item_category_id'] = $this->category_model->getCategoryDropdown(); 
 		$this->form_validation->set_rules('item_category_id','Item Category','required|trim|max_length[11]');			
-		$this->form_validation->set_rules('item_name','Item Name','required|trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('item_specification','Item Specification','trim|xss_clean');			
-		$this->form_validation->set_rules('manufacturer','Manufacturer','trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('item_name','Item Name','required|trim|max_length[255]');			
+		$this->form_validation->set_rules('item_specification','Item Specification','trim');			
+		$this->form_validation->set_rules('manufacturer','Manufacturer','trim|max_length[255]');			
 		$this->form_validation->set_rules('model','Model','max_length[255]');			
-		$this->form_validation->set_rules('capacity','Capacity','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('purpose','Purpose','trim|xss_clean');			
-		$this->form_validation->set_rules('manufacturing_year','Manufacturing Year','trim|xss_clean|max_length[255]');			
-	//	 $this->form_validation->set_rules('cost_brand_new','Cost Brand New','trim|xss_clean|max_length[255]');			
-	//	$this->form_validation->set_rules('cost_reconditioned','Cost Reconditioned','trim|xss_clean|max_length[255]');			
-		//$this->form_validation->set_rules('appraised_value','Appraised Value','trim|xss_clean|max_length[255]');
+		$this->form_validation->set_rules('capacity','Capacity','trim|max_length[255]');			
+		$this->form_validation->set_rules('purpose','Purpose','trim');			
+		$this->form_validation->set_rules('manufacturing_year','Manufacturing Year','trim|max_length[255]');			
+	//	 $this->form_validation->set_rules('cost_brand_new','Cost Brand New','trim|max_length[255]');			
+	//	$this->form_validation->set_rules('cost_reconditioned','Cost Reconditioned','trim|max_length[255]');			
+		//$this->form_validation->set_rules('appraised_value','Appraised Value','trim|max_length[255]');
 			
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 	

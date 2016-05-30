@@ -25,15 +25,15 @@ class Item_detail extends CI_Controller {
 	  $data['certificate_id'] = $certificate_id;
 		//$this->form_validation->set_rules('item_category','Item Category','max_length[11]');			
 		$this->form_validation->set_rules('item_name','Item Name','');			
-		$this->form_validation->set_rules('ce_remarks','CE Remarks','trim|xss_clean');			
-		$this->form_validation->set_rules('specification','Specification','trim|xss_clean');			
-		$this->form_validation->set_rules('year_of_mfg','Year of MFG','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('quantity','Quantity','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('eval_year_of_mfg','Eval. Year of MFG','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('cost_of_machine','Cost of Machine','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('cost_of_recondition','Cost of Recondition','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('appraised_value','Appraised Value','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('make','make','trim|xss_clean|max_length[255]');
+		$this->form_validation->set_rules('ce_remarks','CE Remarks','trim');			
+		$this->form_validation->set_rules('specification','Specification','trim');			
+		$this->form_validation->set_rules('year_of_mfg','Year of MFG','trim|max_length[255]');			
+		$this->form_validation->set_rules('quantity','Quantity','trim|max_length[255]');			
+		$this->form_validation->set_rules('eval_year_of_mfg','Eval. Year of MFG','trim|max_length[255]');			
+		$this->form_validation->set_rules('cost_of_machine','Cost of Machine','trim|max_length[255]');			
+		$this->form_validation->set_rules('cost_of_recondition','Cost of Recondition','trim|max_length[255]');			
+		$this->form_validation->set_rules('appraised_value','Appraised Value','trim|max_length[255]');			
+		$this->form_validation->set_rules('make','make','trim|max_length[255]');
 			
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 	

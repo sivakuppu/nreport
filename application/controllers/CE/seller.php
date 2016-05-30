@@ -14,19 +14,19 @@ class Seller extends CI_Controller {
 	function index()
 	{			
 	  $data = ''; 
-		$this->form_validation->set_rules('name','Seller Name','required|trim|xss_clean');			
-		$this->form_validation->set_rules('address1','Address1','trim|xss_clean');			
-		$this->form_validation->set_rules('address2','Address2','trim|xss_clean');			
-		$this->form_validation->set_rules('address3','Address3','trim|xss_clean');			
-		$this->form_validation->set_rules('country','Country','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('state','State','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('city','City','trim|xss_clean');			
-		$this->form_validation->set_rules('pin_code','Pin Code','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('phone_no','Phone No','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('mobile_no','Mobile No','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('fax','Fax','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('email_id','Email Id','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('remarks','Remarks','trim|xss_clean');			
+		$this->form_validation->set_rules('name','Seller Name','required|trim');			
+		$this->form_validation->set_rules('address1','Address1','trim');			
+		$this->form_validation->set_rules('address2','Address2','trim');			
+		$this->form_validation->set_rules('address3','Address3','trim');			
+		$this->form_validation->set_rules('country','Country','trim|max_length[255]');			
+		$this->form_validation->set_rules('state','State','trim|max_length[255]');			
+		$this->form_validation->set_rules('city','City','trim');			
+		$this->form_validation->set_rules('pin_code','Pin Code','trim|max_length[255]');			
+		$this->form_validation->set_rules('phone_no','Phone No','trim|max_length[255]');			
+		$this->form_validation->set_rules('mobile_no','Mobile No','trim|max_length[255]');			
+		$this->form_validation->set_rules('fax','Fax','trim|max_length[255]');			
+		$this->form_validation->set_rules('email_id','Email Id','trim|max_length[255]');			
+		$this->form_validation->set_rules('remarks','Remarks','trim');			
 			
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 	

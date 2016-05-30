@@ -39,19 +39,19 @@ class CE extends Common {
 	    }
 	  }
 	  
-		$this->form_validation->set_rules('certificate_of_inspection_no','Certificate of Inspection No.','required|trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('certificate_of_inspection_no','Certificate of Inspection No.','required|trim|max_length[255]');			
 		$this->form_validation->set_rules('agent','Agent','');			
 		$this->form_validation->set_rules('importer','Importer','');			
 		$this->form_validation->set_rules('seller','Seller','');	
     $this->form_validation->set_rules('agent_id','Agent ID','');			
 		$this->form_validation->set_rules('importer_id','Importer ID','');			
 		$this->form_validation->set_rules('seller_id','Seller ID','');					
-		$this->form_validation->set_rules('port_of_shipment','Port of Shipment','trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('port_of_shipment','Port of Shipment','trim|max_length[255]');			
 		$this->form_validation->set_rules('declare_invoice_value','Declare Invoice Value','max_length[255]');			
-		$this->form_validation->set_rules('currency','Currency','trim|xss_clean|max_length[255]');			
-		$this->form_validation->set_rules('toi','TOI','trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('currency','Currency','trim|max_length[255]');			
+		$this->form_validation->set_rules('toi','TOI','trim|max_length[255]');			
 		$this->form_validation->set_rules('certificate_date','Certificate Date','');			
-		$this->form_validation->set_rules('freight_amount','Freight Amount','trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('freight_amount','Freight Amount','trim|max_length[255]');			
 		$this->form_validation->set_rules('goods_invoice_no','Goods Invoice No.','trim');			
 		$this->form_validation->set_rules('mabw_bl_no','MABW BL No.','trim');			
 		$this->form_validation->set_rules('inspection_place','Inspection Place','trim|max_length[255]');			

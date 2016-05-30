@@ -14,7 +14,7 @@ class Category extends CI_Controller {
 	function index()
 	{			
 	  $data = ''; 
-		$this->form_validation->set_rules('category_name','Category Name','required|trim|xss_clean|max_length[255]');			
+		$this->form_validation->set_rules('category_name','Category Name','required|trim|max_length[255]');			
 		$this->form_validation->set_rules('description','Description','trim');
 			
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
