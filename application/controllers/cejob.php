@@ -52,14 +52,11 @@ class Cejob extends Common {
 		$this->form_validation->set_rules('currency','Currency','trim|max_length[255]');			
 		$this->form_validation->set_rules('toi','TOI','trim|max_length[255]');			
 		$this->form_validation->set_rules('certificate_date','Certificate Date','');			
-		$this->form_validation->set_rules('freight_amount','Freight Amount','trim|max_length[255]');			
+		$this->form_validation->set_rules('freight_amount','Freight Amount','trim|max_length[255]');
+		$this->form_validation->set_rules('ice_no','Importer Exporter Code No','trim|max_length[255]');			
 		$this->form_validation->set_rules('goods_invoice_no','Goods Invoice No.','trim');			
-		$this->form_validation->set_rules('mabw_bl_no','MABW BL No.','trim');			
 		$this->form_validation->set_rules('inspection_place','Inspection Place','trim|max_length[255]');			
 		$this->form_validation->set_rules('be_number','BE Number','trim|max_length[255]');			
-		$this->form_validation->set_rules('function','Function','trim');			
-		$this->form_validation->set_rules('comments','Comments','trim');			
-		$this->form_validation->set_rules('approximate_year','Approximate Year','trim|max_length[255]');			
 		$this->form_validation->set_rules('freight_description','Freight  Description','trim');
 			
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
@@ -83,16 +80,13 @@ class Cejob extends Common {
 					       	'toi' => set_value('toi'),
 					       	'certificate_date' => set_value('certificate_date'),
 					       	'freight_amount' => set_value('freight_amount'),
+					       	'ice_no' => set_value('ice_no'),
 					       	'goods_invoice_no' => set_value('goods_invoice_no'),
 					       	'invoice_date' => set_value('invoice_date'),
 					       	'inspection_date' => set_value('inspection_date'),
 					       	'inspection_duration' => set_value('inspection_duration'),
-					       	'mabw_bl_no' => set_value('mabw_bl_no'),
 					       	'inspection_place' => set_value('inspection_place'),
 					       	'be_number' => set_value('be_number'),
-					       	'function' => set_value('function'),
-					       	'comments' => set_value('comments'),
-					       	'approximate_year' => set_value('approximate_year'),
 					       	'freight_description' => set_value('freight_description')
 						);
 					
@@ -209,26 +203,14 @@ class Cejob extends Common {
 	$importer_array = array();
 	$importer_array[] = array("(i)	Name",$importer_name);
 	$importer_array[] = array("(ii)	Address",$importer_address);
-	$importer_array[] = array("(iii)	Importer Exporter Code No",$importer_code);
-
-
-
-    $general = array();  
-    $general[] = array("IMPORTER’S NAME & ADDRESS", htmlspecialchars_decode($importer));
-    $general[] = array("SELLER’S NAME & ADDRESS", htmlspecialchars_decode($seller));
-    $general[] = array("INVOICE NO. & DATE", htmlspecialchars_decode($goods_invoice_no));
-    $general[] = array("MAWB/BL NO & DATE", htmlspecialchars_decode($mabw_bl_no));
-    $general[] = array("INSPECTION PLACE & DATE", htmlspecialchars_decode($inspection_place));
-    $general[] = array("PORT OF SHIPMENT", htmlspecialchars_decode($port_of_shipment));
-    $general[] = array("CHA Agents", htmlspecialchars_decode($agent));
-    $general[] = array("BE NO & DATE", htmlspecialchars_decode($be_number));
+	$importer_array[] = array("(iii)	Importer Exporter Code No",$ice_no);
     
     $all_row = $this->item_detail_model->getAllRow($id);
     $local_array_1 = array();
     $local_array_2 = array();
-          $footer_array = array();
+    $footer_array = array();
     if(!empty($all_row)) {
-      $total = 0; 
+	  $total = 0;	
       $flag = 0;
       foreach($all_row as $key => $value) {
         extract((array)$value);
@@ -248,7 +230,7 @@ class Cejob extends Common {
       $report_head = " Evaluated Value $toi Including Available Accessories ";
       $report_head .= $flag > 0 ? " and Reconditioning Charges " : "";
       $local_array_1[0] = array("SL. No.", "Description of items as per the Declaration","Specification Details Noticed", "Make","Qty in Units","Year of MFG", "CE's Remarks");
-      $local_array_2[0] = array("SL. No.", "Description of items as per the Declaration","Specification Details Noticed","Qty in Units","Year of MFG","Cost of Item at the time of Manufacture Including Accessories in $currency", "Evaluated Cost of Reconditioning Charge in  $currency " , " $report_head in $currency", "Declared Invoice Value $toi in $currency" );
+      $local_array_2[0] = array("SL. No.", "Description of items as per the Declaration","Specification Details Noticed","Qty in Units","Year of MFG","Cost of Item at the time of Manufacture Including Available Accessories in $currency", "Evaluated Cost of Reconditioning Charge in  $currency " , " $report_head in $currency", "Declared Invoice Value $toi in $currency" );
 
 		$viii = $ix = $x = $xii= $xiii = ""; 
 		$goods[] = array("(i)","Name of Manufacturer of the machine:","Please refer Annexure I");
@@ -274,7 +256,7 @@ class Cejob extends Common {
 		$valuation_reference[] = array("(iii)","");
 
 		$signature[] = array("Signature:\n\n\n\n\n\n\n");
-		$inspector[] = array("Date","6.11.2015");
+		$inspector[] = array("Date", $report_date);
 		$inspector[] = array("Name of Inspecting Person / Inspector","K.P. VIJAYAKUMAR\nCHARTERED ENGINEER\nREG NO: M / 121699 / 0");
 		$inspector[] = array("Designation","CEO\nNIREEKSHAN ENGINEERS AND SURVEYORS");
 		$inspector[] = array("Address (Office)","NEW: 259, OLD: 125, II FLOOR,\nLINGHI CHETTY STREET,\nCHENNAI – 600001.");
@@ -283,10 +265,10 @@ class Cejob extends Common {
 
 	  
       $footer_array[0] = array(htmlspecialchars_decode($report_head), $currency, $this->getStr($total));
-      /*if($freight_amount || $freight_description ) {
+      if($freight_amount || $freight_description ) {
        $footer_array[1] = array(htmlspecialchars_decode($freight_description), $currency, $this->getStr($freight_amount));
        
-      }*/
+      }
       if($this->getStr($declare_invoice_value, true) > 0) {
        $footer_array[2] = array("Declared Invoice Value $toi as per Invoice no. ".htmlspecialchars_decode($goods_invoice_no) . " / " . $invoice_date, $currency, $this->getStr($declare_invoice_value));
       } 
@@ -310,10 +292,13 @@ class Cejob extends Common {
     if(!empty($importer_array)) {
        $this->generateTable($importer_array);
     }
+	$this->pageBreak();
 	$this->getParagraphUnderline("Details of the goods:",true, "", 10,10);//Details of the goods:
     if(!empty($goods)) {
        $this->generateTableAutoLastBold($goods);
     }
+	$this->pageBreak();
+
     $this->getParagraph("The following means / aids/ technical reference material have been used for inspecting the goods:",false, "", 15,15);
     if(!empty($valuation_reference)) {
        $this->generateTable($valuation_reference);
@@ -323,7 +308,7 @@ class Cejob extends Common {
        $this->generateTable($signature);
        $this->generateTable($inspector);
     }
-	$this->getWhiteLine(1);
+	$this->pageBreak();
 	$this->middleParagraphUnderline("ANNEXURE – I" , true, 11,0,20);
 	$this->getReportNo($certificate_of_inspection_no, $report_date, 8);
     $this->getParagraph("REF: $be_number", true,11,5,10);
@@ -342,7 +327,7 @@ class Cejob extends Common {
     $this->getParagraph(sprintf($p51, $report_date),true, "", 6,0,$letter_space);
     $this->getParagraph($p52,true, "", 6,0,$letter_space);
 
-    $this->getWhiteLine(1);
+   	$this->pageBreak();
     $this->middleParagraphUnderline("ANNEXURE – II" ,true, 11);
     $this->middleParagraph($p53 ,true, 10,10,10);
     $this->getReportNo($certificate_of_inspection_no, $report_date, 8);
@@ -361,6 +346,7 @@ class Cejob extends Common {
     $this->getParagraph(sprintf($p51, $report_date),true, "", 6,0,$letter_space);
     $this->getParagraph($p52,true, "", 6,0,$letter_space);
     
+	$this->com->ActiveDocument->Sections(1)->Footers(1)->PageNumbers->Add(2, TRUE);
     $status = true; 
     try {
       $month = date('M');

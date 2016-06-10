@@ -60,11 +60,7 @@ echo form_open($action , $attributes); ?>
         <?php endif;?>
 </p>
 
-<p>
-        <label for="port_of_shipment">Port of Shipment</label>
-        <?php echo form_error('port_of_shipment'); ?>
-        <br /><input id="port_of_shipment" type="text" name="port_of_shipment" maxlength="255" value="<?php echo isset($port_of_shipment) ? $port_of_shipment : set_value('port_of_shipment'); ?>"  />
-</p>
+
 <p>
         <label for="currency">Currency</label>
         <?php echo form_error('currency'); ?>
@@ -115,36 +111,13 @@ echo form_open($action , $attributes); ?>
 	<br />
 	<input id="inspection_duration" type="text" name="inspection_duration" maxlength="255" value="<?php echo isset($inspection_duration) ? $inspection_duration  : set_value('inspection_duration'); ?>"  />					
 </p>
-<p>
-    <label for="mabw_bl_no">MABW BL No.</label>
-	<?php echo form_error('mabw_bl_no'); ?>
-	<br />
-	<input id="mabw_bl_no" type="text" name="mabw_bl_no" maxlength="255" value="<?php echo isset($mabw_bl_no) ? $mabw_bl_no  : set_value('mabw_bl_no'); ?>"  />
-</p>
 </div>
 <div class="right-panel common-div width-div" >
-
 <p>
-        <label for="function">Function</label>
-	<?php echo form_error('function'); ?>
-	<br />
-							
-	<?=form_textarea( array( 'name' => 'function', 'rows' => '3', 'cols' => '80', 'value' => isset($function) ? $function : set_value('function') ) )?>
+        <label for="ice_no">Importer Exporter Code No</label>
+        <?php echo form_error('ice_no'); ?>
+        <br /><input id="ice_no" type="text" name="ice_no" maxlength="255" value="<?php echo isset($ice_no) ? $ice_no  : set_value('ice_no'); ?>"  />
 </p>
-<p>
-  <label for="comments">Comments</label>
-	<?php echo form_error('comments'); ?>
-	<br />
-							
-	<?=form_textarea( array( 'name' => 'comments', 'rows' => '3', 'cols' => '80', 'value' => isset($comments) ? $comments : set_value('comments') ) )?>
-</p>
-
-<p>
-        <label for="approximate_year">Evaluated Year</label>
-        <?php echo form_error('approximate_year'); ?>
-        <br /><textarea id="approximate_year" name="approximate_year" ><?php echo isset($approximate_year) ? $approximate_year  : set_value('approximate_year'); ?></textarea>
-</p>
-
 <p>
         <label for="freight_description">Freight  Description</label>   
 	<?php echo form_error('freight_description'); ?>
@@ -157,7 +130,7 @@ echo form_open($action , $attributes); ?>
         <?php echo form_error('freight_amount'); ?>
         <br /><input id="freight_amount" type="text" name="freight_amount" maxlength="255" value="<?php echo isset($freight_amount) ? $freight_amount  : set_value('freight_amount'); ?>"  />
 </p>
- </div>
+</div>
  <div>
 
 

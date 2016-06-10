@@ -1,0 +1,1 @@
+ALTER TABLE `certificate` ADD `ice_no` VARCHAR(255) NOT NULL AFTER `freight_description`;

@@ -260,6 +260,7 @@ class Common extends CI_Controller {
     $this->com->Selection->PageSetup->RightMargin = MARGIN_RIGHT;
     $this->com->Selection->PageSetup->TopMargin = $margin_top ? $margin_top : MARGIN_TOP;
     $this->com->Selection->PageSetup->BottomMargin = MARGIN_BOTTOM;
+
     if($font) {
       $this->com->Selection->Font->Name = $font;
     }
@@ -268,12 +269,17 @@ class Common extends CI_Controller {
     }
     
     $this->com->Selection->Font->Size = $font_size ? $font_size : FONT_SIZE;
+	//$this->com->Selection->Headers(1)->PageNumbers.Add(1,TRUE);
   } // END function word
-  
+  function pageBreak() {
+	$this->documents->Paragraphs->Add->Range->InsertBreak(7);  
+	$this->getWhiteLine(2);
+  }	  
   function saveAs($file)
   { // BEGIN function saveAs
     $path = $this->report_path;
 	$file = $path ."/". $file;
+	//print_r($this->com->Selection);
     $this->documents->SaveAs($file);  	
   } // END function saveAs
   
@@ -356,9 +362,6 @@ class Common extends CI_Controller {
   	 $range->Font->Bold = TRUE;
   	}
   	$range->Font->Size = $size;
-	if($underline) {
-		$range->Font->Underline = TRUE;
-	}
   	$range->InsertBefore($text);
   } // END function getFirstFooter
 
