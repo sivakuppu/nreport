@@ -79,13 +79,13 @@ echo form_open("CE/item_detail/index/$certificate_id", $attributes); ?>
 <p>
         <label for="cost_of_recondition">Cost of Recondition</label>
         <?php echo form_error('cost_of_recondition'); ?>
-        <br /><input id="cost_of_recondition" type="text" name="cost_of_recondition" maxlength="255" value="<?php echo set_value('cost_of_recondition'); ?>"  />
+        <br /><input id="cost_of_recondition" type="text" name="cost_of_recondition" maxlength="255" value="<?php echo set_value('cost_of_recondition','Not Applicable'); ?>"  />
 </p>
 
 <p>
         <label for="appraised_value">Appraised Value</label>
         <?php echo form_error('appraised_value'); ?>
-        <br /><input id="appraised_value" type="text" name="appraised_value" maxlength="255" value="<?php echo  set_value('appraised_value', 'Not Applicable');?>"  />
+        <br /><input id="appraised_value" type="text" name="appraised_value" maxlength="255" value="<?php echo  set_value('appraised_value');?>"  />
 </p>
 
 <p>
