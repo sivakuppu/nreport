@@ -66,6 +66,8 @@ class Item_detail_model extends CI_Model {
     if(!$flag) {
       return null;
     }
+	$this->db->join('certificate', 'certificate.id = ' . $this->table .'.certificate_id', 'left');
+	$this->db->select("certificate.certificate_of_inspection_no, {$this->table}.*");
     $query = $this->db->get($this->table);
     return $query->result();
      

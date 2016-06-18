@@ -33,7 +33,8 @@ class Item_detail extends CI_Controller {
 		$this->form_validation->set_rules('cost_of_machine','Cost of Machine','trim|max_length[255]');			
 		$this->form_validation->set_rules('cost_of_recondition','Cost of Recondition','trim|max_length[255]');			
 		$this->form_validation->set_rules('appraised_value','Appraised Value','trim|max_length[255]');			
-		$this->form_validation->set_rules('make','make','trim|max_length[255]');
+		$this->form_validation->set_rules('make','Make','trim|max_length[255]');
+		$this->form_validation->set_rules('invoice_value','Declared Invoice Value','trim|max_length[255]');
 			
 		$this->form_validation->set_error_delimiters('<br /><span class="error">', '</span>');
 	
@@ -57,7 +58,8 @@ class Item_detail extends CI_Controller {
 					       	'cost_of_machine' => set_value('cost_of_machine'),
 					       	'cost_of_recondition' => set_value('cost_of_recondition'),
 					       	'appraised_value' => set_value('appraised_value'),
-					       	'make' => set_value('make')
+					       	'make' => set_value('make'),
+					       	'invoice_value' => set_value('invoice_value')
 						);
 					
 			// run insert model to write data to db
@@ -96,16 +98,18 @@ class Item_detail extends CI_Controller {
         extract((array)$value); 
         $tr .= "<tr>";
         $tr .= "<td>".($key+1)."</td>";
+        $tr .= "<td >$certificate_of_inspection_no</td>";
         $tr .= "<td >$item_name</td>";
         $tr .= "<td >$specification</td>";
         $tr .= "<td >$make</td>";
         $tr .= "<td >$quantity</td>";
         $tr .= "<td >$year_of_mfg</td>";
+        $tr .= "<td >$eval_year_of_mfg</td>";  
         $tr .= "<td >$ce_remarks</td>";
         $tr .= "<td >$cost_of_machine</td>";
         $tr .= "<td >$cost_of_recondition</td>";
         $tr .= "<td >$appraised_value</td>";
-        $tr .= "<td >$eval_year_of_mfg</td>";  
+        $tr .= "<td >$invoice_value</td>";  
         $tr .= "</tr>";
       }
      }
@@ -117,6 +121,10 @@ class Item_detail extends CI_Controller {
       $response =  $this->item_detail_model->delete($id);
       echo 1;
     }
+  }
+  
+  function search_html()  {
+	$this->load->view('CE/search_item_detail_html');  
   }
   
 }

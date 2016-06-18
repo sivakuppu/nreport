@@ -223,8 +223,9 @@ class Cejob extends Common {
         }
         $appraised_value = $this->getStr($appraised_value);
         $cost_of_recondition  = "USED AND NOT RECONDITIONED" == strtoupper($ce_remarks) ?  "NOT APPLICABLE"  : $cost_of_recondition;
-        $year_of_mfg = empty($year_of_mfg) ? (empty($eval_year_of_mfg) ? "NOT APPLICABLE" : htmlspecialchars_decode($eval_year_of_mfg) ) :  htmlspecialchars_decode($year_of_mfg);   
-        $local_array_2[$key+1] = array($key+1, htmlspecialchars_decode($item_name),htmlspecialchars_decode($specification),htmlspecialchars_decode($quantity),htmlspecialchars_decode($year_of_mfg),htmlspecialchars_decode($cost_of_machine),$cost_of_recondition,$appraised_value, "");
+        $year_of_mfg = empty($year_of_mfg) || strtolower($year_of_mfg) == "not applicable" || strtolower($year_of_mfg) == "not available" ? (empty($eval_year_of_mfg) ? "NOT APPLICABLE" :
+		htmlspecialchars_decode($eval_year_of_mfg) ) :  htmlspecialchars_decode($year_of_mfg);   
+        $local_array_2[$key+1] = array($key+1, htmlspecialchars_decode($item_name),htmlspecialchars_decode($specification),htmlspecialchars_decode($quantity),htmlspecialchars_decode($year_of_mfg),htmlspecialchars_decode($cost_of_machine),$cost_of_recondition,$appraised_value,$invoice_value);
       }
       
       $report_head = " Evaluated Value $toi Including Available Accessories ";
@@ -311,7 +312,7 @@ class Cejob extends Common {
 	$this->pageBreak();
 	$this->middleParagraphUnderline("ANNEXURE – I" , true, 11,0,20);
 	$this->getReportNo($certificate_of_inspection_no, $report_date, 8);
-    $this->getParagraph("REF: $be_number", true,11,5,10);
+    $this->getParagraph("REF: BE NO: $be_number", true,11,5,10);
     if(!empty($local_array_1)) {
        $this->generateHeaderTable($local_array_1);
     }

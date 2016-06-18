@@ -160,7 +160,7 @@ echo form_open($action , $attributes); ?>
       <td><?php echo anchor('CE/importer', 'Importer', array('title' => 'Importer', 'class'=>'popup-a'));?></td>
       <td><?php echo anchor('CE/seller', 'Seller', array('title' => 'Seller', 'class'=>'popup-a'));?></td>
       <!--<td><?php echo anchor('CE/category', 'Category', array('title' => 'Category', 'class'=>'popup-a'));?></td>-->
-      <!--<td><?php echo anchor('CE/item', 'Item', array('title' => 'Item', 'class'=>'popup-a'));?></td>-->
+      <td><?php echo anchor('CE/item_detail/search_html', 'Search Items', array('title' => 'Search Items', 'class'=>'popup-a'));?></td>
       <td><input type="text" name="report_no" size="30"></td>  
       <td><input type="submit" name="get" value="Get"></td>
       <td><input type="submit" name="new" value="New"></td>

@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 define("CONTAINER_40_GP",1);
 define("CONTAINER_40_HC",2);
 define("CONTAINER_20_GP",3);

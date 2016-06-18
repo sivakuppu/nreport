@@ -50,6 +50,11 @@ echo form_open("CE/item_detail/index/$certificate_id", $attributes); ?>
         <br /><input id="year_of_mfg" type="text" name="year_of_mfg" maxlength="255" value="<?php echo set_value('year_of_mfg'); ?>"  />
 </p>
 
+<p>
+        <label for="make">Make</label>
+        <?php echo form_error('make'); ?>
+        <br /><input id="make" type="text" name="make" maxlength="255" value="<?php echo set_value('make'); ?>"  />
+</p>
 
 </div>
 <div class="right-panel common-div" >
@@ -84,9 +89,9 @@ echo form_open("CE/item_detail/index/$certificate_id", $attributes); ?>
 </p>
 
 <p>
-        <label for="make">Make</label>
-        <?php echo form_error('make'); ?>
-        <br /><input id="make" type="text" name="make" maxlength="255" value="<?php echo set_value('make'); ?>"  />
+        <label for="invoice_value">Declared Invoice Value</label>
+        <?php echo form_error('invoice_value'); ?>
+        <br /><input id="invoice_value" type="text" name="invoice_value" maxlength="255" value="<?php echo set_value('invoice_value'); ?>"  />
 </p>
  </div>
 
@@ -97,53 +102,7 @@ echo form_open("CE/item_detail/index/$certificate_id", $attributes); ?>
 </div>
 <!-- Table list-->
 <div id="report-div" style="display:none;">
-<div id="report-form">
-  <table>
-    <tr>
-      <!--<td>  
-        <label for="report-category">Item Category</label><br>   
-        <select id="report-category"><?php echo $item_category_id; ?></select>
-      </td> -->
-      <td>
-        <label for="report-item-name">Item Name</label>
-        <br /><input id="report-item-name" type="text"   />
-      </td>
-      <td>
-        <label for="report-specification">Specification</label>
-        <br /><input id="report-specification" type="text"  />
-      </td>
-      <td>
-        <label for="report-make">Make</label>
-        <br /><input id="report-make" type="text"  />
-      </td>
-      <td>
-        <input id="get-report" type="button" name="get-report" value="Get Report"  />  
-      </td>
-    </tr>
-  </table>
-</div>     
-
-<div STYLE=" height: 300px; width: 100%; font-size: 11px; overflow: auto;">
-<table>
-  <thead >
-    <tr >
-      <th>S no.</th>
-      <th>Item Name</th>
-      <th>Specification</th>    
-      <th>Make</th>
-      <th>Quantity</th>
-      <th>Year of MFG</th>
-      <th>CE Remarks</th>
-      <th>Cost of Machine</th>
-      <th>Cost of Recondition</th>
-      <th>Appraised Value</th>
-      <th>Eval. Year of MFG</th>
-    </tr>
- </thead>    
- <tbody id="report-tbody">          
- </tbody>
-</table>
-</div>
+<?php $this->load->view('CE/search_item_detail'); ?>
 </div>
 <div STYLE=" height: 300px; width: 100%; font-size: 11px; overflow: auto;">
 <table>
@@ -155,11 +114,12 @@ echo form_open("CE/item_detail/index/$certificate_id", $attributes); ?>
       <th>Make</th>
       <th>Quantity</th>
       <th>Year of MFG</th>
+      <th>Eval. Year of MFG</th>
       <th>CE Remarks</th>
       <th>Cost of Machine</th>
       <th>Cost of Recondition</th>
       <th>Appraised Value</th>
-      <th>Eval. Year of MFG</th>
+      <th>Declared Invoice Value</th>
       <th>Action</th>
     </tr>
  </thead>    
@@ -180,11 +140,12 @@ echo form_open("CE/item_detail/index/$certificate_id", $attributes); ?>
         <td class="popup-edit" id="make-<?php echo $id;?>" ><?php echo $make;?></td>
         <td class="popup-edit" id="quantity-<?php echo $id;?>" ><?php echo $quantity;?></td>
         <td class="popup-edit" id="year_of_mfg-<?php echo $id;?>" ><?php echo $year_of_mfg;?></td>
+        <td class="popup-edit" id="eval_year_of_mfg-<?php echo $id;?>"><?php echo $eval_year_of_mfg;?></td>  
         <td class="popup-edit" id="ce_remarks-<?php echo $id;?>" ><?php echo $ce_remarks;?></td>
         <td class="popup-edit" id="cost_of_machine-<?php echo $id;?>" ><?php echo $cost_of_machine;?></td>
         <td class="popup-edit" id="cost_of_recondition-<?php echo $id;?>" ><?php echo $cost_of_recondition;?></td>
         <td class="popup-edit" id="appraised_value-<?php echo $id;?>" ><?php echo $appraised_value;?></td>
-        <td class="popup-edit" id="eval_year_of_mfg-<?php echo $id;?>"><?php echo $eval_year_of_mfg;?></td>  
+        <td class="popup-edit" id="invoice_value-<?php echo $id;?>"><?php echo $invoice_value;?></td>  
         <td><?php echo anchor("#", 'Delete', array('rel' => "$id", 'class' => 'delete-item-detail'));?></td>
       </tr>
     <?php }}?>
