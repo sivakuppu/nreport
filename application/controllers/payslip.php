@@ -128,7 +128,7 @@ class Payslip extends CI_Controller {
 		$com->Selection->InlineShapes->AddPicture(realpath(FCPATH . "/images/n.jpg"), FALSE, TRUE, $table->Cell(1,2)->Range);
 		$table->Cell(1,3)->Range->InsertAfter("NIREEKSHAN ENGINEERING SERVICES PVT LTD NEW: 259, OLD: 125, III FLOOR,LINGHI CHETTY STREET, CHENNAI - 600001");
 		$documents->Tables->Item(1)->Rows->Alignment = 1;
-		$table->Cell(1,3)->setWidth(0.019 ,0);
+		//$table->Cell(1,3)->setWidth(0.019 ,0);
 		//$table->Cell(1,3)->width = 0.70;
 		
 		$com->ActiveDocument->Tables(1)->PreferredWidthType= 2; 
